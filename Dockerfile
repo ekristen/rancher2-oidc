@@ -4,6 +4,8 @@ RUN apk add --no-cache ca-certificates
 RUN addgroup -g 1000 oidc && \
     adduser -D -h /app -u 1000 -G oidc oidc
 RUN mkdir -p /app/data && chown -R oidc:oidc /app/data
+ENTRYPOINT ["/app/rancher2-oidc"]
+CMD ["aggregator", "--port", "8080"]
 
 FROM golang:1.25-alpine AS build
 COPY / /src
@@ -14,12 +16,8 @@ FROM base AS goreleaser
 COPY rancher2-oidc /app/
 WORKDIR /app
 USER oidc
-ENTRYPOINT ["/app/rancher2-oidc"]
-CMD ["aggregator", "--port", "8080"]
 
 FROM base
 COPY --from=build /bin/rancher2-oidc /app/
 WORKDIR /app
 USER oidc
-ENTRYPOINT ["/app/rancher2-oidc"]
-CMD ["aggregator", "--port", "8080"]
