@@ -7,7 +7,6 @@ RUN mkdir -p /app/data && chown -R oidc:oidc /app/data
 ENTRYPOINT ["/app/oidc-aggregator"]
 CMD ["aggregator", "--port", "8080"]
 
-
 # Build stage
 FROM golang:1.25-alpine AS build
 WORKDIR /src
@@ -21,12 +20,11 @@ RUN \
     CGO_ENABLED=1 GOOS=linux go build -a -ldflags '-linkmode external -extldflags "-static"' -o /bin/oidc-aggregator .
 
 FROM base AS goreleaser
-COPY --from=builder /bin/oidc-aggregator /app/
+COPY --from=build /bin/oidc-aggregator /app/
 WORKDIR /app
 USER oidc
 
-
 FROM base
-COPY --from=builder /bin/oidc-aggregator /app/
+COPY --from=build /bin/oidc-aggregator /app/
 WORKDIR /app
 USER oidc
