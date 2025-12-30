@@ -1,14 +1,14 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "oidc-aggregator.name" -}}
+{{- define "rancher2-oidc.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create a default fully qualified app name.
 */}}
-{{- define "oidc-aggregator.fullname" -}}
+{{- define "rancher2-oidc.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -24,16 +24,16 @@ Create a default fully qualified app name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "oidc-aggregator.chart" -}}
+{{- define "rancher2-oidc.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "oidc-aggregator.labels" -}}
-helm.sh/chart: {{ include "oidc-aggregator.chart" . }}
-{{ include "oidc-aggregator.selectorLabels" . }}
+{{- define "rancher2-oidc.labels" -}}
+helm.sh/chart: {{ include "rancher2-oidc.chart" . }}
+{{ include "rancher2-oidc.selectorLabels" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
@@ -41,17 +41,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "oidc-aggregator.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "oidc-aggregator.name" . }}
+{{- define "rancher2-oidc.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "rancher2-oidc.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "oidc-aggregator.serviceAccountName" -}}
+{{- define "rancher2-oidc.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "oidc-aggregator.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "rancher2-oidc.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

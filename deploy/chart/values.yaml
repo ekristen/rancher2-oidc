@@ -1,7 +1,7 @@
-# Default values for oidc-aggregator.
+# Default values for rancher2-oidc.
 
 # Base URL for the OIDC endpoints (required)
-baseURL: "https://aggregator.example.com"
+baseURL: "https://rancher2.example.com"
 
 # Port to listen on
 port: 8080
@@ -43,7 +43,7 @@ ingress:
 
 # Image configuration
 image:
-  repository: ghcr.io/ekristen/rancher-oidc
+  repository: ghcr.io/ekristen/rancher2-oidc
   pullPolicy: IfNotPresent
   tag: ""
 

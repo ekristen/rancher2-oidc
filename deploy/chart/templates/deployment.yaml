@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "oidc-aggregator.fullname" . }}
+  name: {{ include "rancher2-oidc.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "oidc-aggregator.labels" . | nindent 4 }}
+    {{- include "rancher2-oidc.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.pod.replicas }}
   selector:
     matchLabels:
-      {{- include "oidc-aggregator.selectorLabels" . | nindent 6 }}
+      {{- include "rancher2-oidc.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "oidc-aggregator.selectorLabels" . | nindent 8 }}
+        {{- include "rancher2-oidc.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "oidc-aggregator.serviceAccountName" . }}
+      serviceAccountName: {{ include "rancher2-oidc.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.pod.securityContext | nindent 8 }}
       containers:

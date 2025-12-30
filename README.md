@@ -58,7 +58,7 @@ The OIDC Aggregator runs on your Rancher management cluster and provides unified
 
 ```bash
 # Install the chart
-helm install oidc-aggregator oci://ghcr.io/ekristen/charts/oidc-aggregator \
+helm install rancher2-oidc oci://ghcr.io/ekristen/charts/rancher2-oidc \
   --namespace cattle-system \
   --set baseURL=https://your-rancher-domain.com \
   --set ingress.enabled=true \
@@ -189,14 +189,14 @@ The service account requires the following permissions:
 
 ```bash
 # Build
-go build -o rancher-oidc-aggregator .
+go build -o rancher-rancher2-oidc .
 
 # Run with KUBECONFIG (connects to Rancher cluster)
 export KUBECONFIG=~/.kube/rancher-config
-./rancher-oidc-aggregator aggregator --base-url http://localhost:8080
+./rancher-rancher2-oidc aggregator --base-url http://localhost:8080
 
 # Or specify kubeconfig via flag
-./rancher-oidc-aggregator aggregator \
+./rancher-rancher2-oidc aggregator \
   --base-url http://localhost:8080 \
   --kubeconfig ~/.kube/rancher-config
 ```

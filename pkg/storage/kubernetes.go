@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	secretLabel     = "oidc-aggregator.rancher.io/managed"
-	clusterIDLabel  = "oidc-aggregator.rancher.io/cluster-id"
+	secretLabel     = "rancher2-oidc.ekristen.dev/managed"
+	clusterIDLabel  = "rancher2-oidc.ekristen.dev/cluster-id"
 	secretDataKey   = "identity"
 	secretNamespace = "cattle-system"
 )
