@@ -21,14 +21,12 @@ RUN \
     CGO_ENABLED=1 GOOS=linux go build -a -ldflags '-linkmode external -extldflags "-static"' -o /bin/oidc-aggregator .
 
 FROM base AS goreleaser
-ARG PROJECT_NAME=go-project-template
 COPY --from=builder /bin/oidc-aggregator /app/
 WORKDIR /app
 USER oidc
 
 
 FROM base
-ARG PROJECT_NAME=go-project-template
 COPY --from=builder /bin/oidc-aggregator /app/
 WORKDIR /app
 USER oidc
