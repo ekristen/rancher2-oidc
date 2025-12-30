@@ -1,0 +1,9 @@
+.idea/
+dist/
+public/
+.env*
+*.key
+tmp/
+.claude
+PLAN.md
+PRD.md

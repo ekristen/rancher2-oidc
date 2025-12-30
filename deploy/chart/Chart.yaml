@@ -1,0 +1,15 @@
+apiVersion: v2
+name: oidc-aggregator
+description: OIDC discovery and JWKS aggregation service for Rancher clusters
+version: 0.1.0
+appVersion: 0.1.0
+home: https://github.com/ekristen/rancher-oidc-aggregator-ng
+maintainers:
+  - name: Erik Kristensen
+    email: erik@erikkristensen.com
+type: application
+keywords:
+  - oidc
+  - jwks
+  - rancher
+  - kubernetes

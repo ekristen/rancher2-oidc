@@ -1,0 +1,85 @@
+# Default values for oidc-aggregator.
+
+# Base URL for the OIDC endpoints (required)
+baseURL: "https://aggregator.example.com"
+
+# Port to listen on
+port: 8080
+
+# Cache TTL in minutes for OIDC data fetched from downstream clusters
+cacheTTL: 15
+
+# Pod configuration
+pod:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8080
+
+# Ingress configuration
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  # Hostname for the ingress (required when ingress is enabled)
+  hostname: ""
+  tls: []
+
+# Image configuration
+image:
+  repository: ghcr.io/ekristen/rancher-oidc
+  pullPolicy: IfNotPresent
+  tag: ""
+
+# ImagePullSecrets if needed
+imagePullSecrets: []
+
+# Service account configuration
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# RBAC configuration
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
+
+# Pod disruption budget
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+
+# Metrics configuration (Prometheus)
+metrics:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    namespace: ""
+
+# Log level configuration
+logLevel: info
+
+# Enable debug mode
+debug: false
