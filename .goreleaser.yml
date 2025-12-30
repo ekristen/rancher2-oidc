@@ -4,7 +4,7 @@ release:
     owner: ekristen
     name: rancher2-oidc
   extra_files:
-    - glob: dist/charts/*.tgz
+    - glob: deploy/dist/*.tgz
 env:
   - REGISTRY=ghcr.io
   - IMAGE=ekristen/rancher2-oidc
@@ -12,11 +12,11 @@ env:
 before:
   hooks:
     - go mod tidy
-    # Package Helm chart with version from release
-    - mkdir -p dist/charts
-    - sh -c "sed 's/^version:.*/version: \"{{ .Version }}\"/' deploy/chart/Chart.yaml > deploy/chart/Chart.yaml.tmp && mv deploy/chart/Chart.yaml.tmp deploy/chart/Chart.yaml"
-    - sh -c "sed 's/^appVersion:.*/appVersion: \"{{ .Version }}\"/' deploy/chart/Chart.yaml > deploy/chart/Chart.yaml.tmp && mv deploy/chart/Chart.yaml.tmp deploy/chart/Chart.yaml"
-    - helm package deploy/chart -d dist/charts
+    - >-
+      sh -c 'sed "s/^version:.*/version: {{ if .IsGitDirty }}{{ .RawVersion }}{{ else }}{{ .Version }}{{ end }}/" deploy/chart/Chart.yaml > deploy/chart/Chart.yaml.tmp && mv deploy/chart/Chart.yaml.tmp deploy/chart/Chart.yaml'
+    - >-
+      sh -c 'sed "s/^appVersion:.*/appVersion: {{ if .IsGitDirty }}{{ .RawVersion }}{{ else }}{{ .Version }}{{ end }}/" deploy/chart/Chart.yaml > deploy/chart/Chart.yaml.tmp && mv deploy/chart/Chart.yaml.tmp deploy/chart/Chart.yaml'
+    - helm package deploy/chart -d deploy/dist
 builds:
   - id: rancher2-oidc
     goos:
