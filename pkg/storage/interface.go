@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/api"
+	"github.com/ekristen/rancher2-oidc/pkg/api"
 )
 
 // Storage defines the interface for storing and retrieving cluster identity data

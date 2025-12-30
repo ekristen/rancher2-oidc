@@ -11,7 +11,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/api"
+	"github.com/ekristen/rancher2-oidc/pkg/api"
 )
 
 const (

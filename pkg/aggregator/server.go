@@ -13,11 +13,11 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/api"
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/fetcher"
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/kube"
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/rancher"
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/storage"
+	"github.com/ekristen/rancher2-oidc/pkg/api"
+	"github.com/ekristen/rancher2-oidc/pkg/fetcher"
+	"github.com/ekristen/rancher2-oidc/pkg/kube"
+	"github.com/ekristen/rancher2-oidc/pkg/rancher"
+	"github.com/ekristen/rancher2-oidc/pkg/storage"
 )
 
 // LocalClusterID is the special cluster ID for the local/management cluster

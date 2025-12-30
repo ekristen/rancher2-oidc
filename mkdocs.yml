@@ -1,7 +1,7 @@
 site_name: Rancher OIDC Aggregator
-site_url: https://ekristen.github.io/rancher-oidc-aggregator-ng
-repo_name: ekristen/rancher-oidc-aggregator-ng
-repo_url: https://github.com/ekristen/rancher-oidc-aggregator-ng
+site_url: https://ekristen.github.io/rancher2-oidc
+repo_name: ekristen/rancher2-oidc
+repo_url: https://github.com/ekristen/rancher2-oidc
 edit_uri: ""
 
 site_dir: public

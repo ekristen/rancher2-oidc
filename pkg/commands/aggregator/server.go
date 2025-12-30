@@ -12,8 +12,8 @@ import (
 	"github.com/urfave/cli/v3"
 	"go.uber.org/zap"
 
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/aggregator"
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/common"
+	"github.com/ekristen/rancher2-oidc/pkg/aggregator"
+	"github.com/ekristen/rancher2-oidc/pkg/common"
 )
 
 func Execute(ctx context.Context, c *cli.Command) error {

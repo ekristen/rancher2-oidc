@@ -1,4 +1,4 @@
-module github.com/ekristen/rancher-oidc-aggregator-ng
+module github.com/ekristen/rancher2-oidc
 
 go 1.25
 

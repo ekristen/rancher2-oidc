@@ -9,8 +9,8 @@ import (
 	"go.uber.org/zap"
 	"k8s.io/client-go/rest"
 
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/api"
-	"github.com/ekristen/rancher-oidc-aggregator-ng/pkg/rancher"
+	"github.com/ekristen/rancher2-oidc/pkg/api"
+	"github.com/ekristen/rancher2-oidc/pkg/rancher"
 )
 
 // Fetcher retrieves OIDC configuration and JWKS from downstream clusters
