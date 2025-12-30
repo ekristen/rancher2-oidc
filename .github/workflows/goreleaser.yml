@@ -49,14 +49,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: install cosign
         uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac # v3
-      - name: install quill
-        env:
-          QUILL_VERSION: 0.4.1
-        run: |
-          curl -Lo /tmp/quill_${QUILL_VERSION}_linux_amd64.tar.gz https://github.com/anchore/quill/releases/download/v${QUILL_VERSION}/quill_${QUILL_VERSION}_linux_amd64.tar.gz
-          tar -xvf /tmp/quill_${QUILL_VERSION}_linux_amd64.tar.gz -C /tmp
-          mv /tmp/quill /usr/local/bin/quill
-          chmod +x /usr/local/bin/quill
       - name: setup helm
         uses: azure/setup-helm@fe7b79cd5ee1e45176fcad797de68ecaf3ca4814 # v4
         with:
