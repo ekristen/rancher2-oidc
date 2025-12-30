@@ -18,6 +18,8 @@ before:
     - helm package deploy/chart -d deploy/dist
 builds:
   - id: rancher2-oidc
+    env:
+      - CGO_ENABLED=0
     goos:
       - linux
     goarch:
