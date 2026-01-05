@@ -83,16 +83,17 @@ func (c *Client) ListClusters(ctx context.Context) ([]ClusterInfo, error) {
 	return clusters, nil
 }
 
-// GetCluster retrieves a specific cluster by its clusterName (e.g., "c-m-sdw5jvlh")
+// GetCluster retrieves a specific cluster by its resource name (e.g., "cluster-rke2-dev-310a")
+// or by its internal cluster ID (e.g., "c-m-sdw5jvlh" from status.clusterName).
 func (c *Client) GetCluster(ctx context.Context, clusterName string) (*ClusterInfo, error) {
-	// We need to list all clusters and find the one with matching status.clusterName
 	clusters, err := c.ListClusters(ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, cluster := range clusters {
-		if cluster.ClusterName == clusterName {
+		// Match by resource name (human-readable) or internal cluster ID
+		if cluster.Name == clusterName || cluster.ClusterName == clusterName {
 			return &cluster, nil
 		}
 	}

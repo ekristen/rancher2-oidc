@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"go.uber.org/zap"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 
 	"github.com/ekristen/rancher2-oidc/pkg/api"
@@ -104,12 +106,12 @@ func (f *Fetcher) createRESTClient(config *rest.Config) (*rest.RESTClient, error
 	// Copy the config to avoid modifying the original
 	configCopy := rest.CopyConfig(config)
 
-	// Clear settings that might interfere with raw API calls
+	// Configure for raw API calls
 	configCopy.APIPath = ""
-	configCopy.GroupVersion = nil
-	configCopy.NegotiatedSerializer = nil
+	configCopy.GroupVersion = &corev1.SchemeGroupVersion
+	configCopy.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 
-	restClient, err := rest.UnversionedRESTClientFor(configCopy)
+	restClient, err := rest.RESTClientFor(configCopy)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create REST client: %w", err)
 	}
@@ -117,19 +119,21 @@ func (f *Fetcher) createRESTClient(config *rest.Config) (*rest.RESTClient, error
 	return restClient, nil
 }
 
-// ListAvailableClusters returns a list of all cluster IDs that can be fetched
+// ListAvailableClusters returns a list of all cluster names that can be fetched.
+// Returns the human-readable resource names (e.g., "cluster-rke2-dev-310a").
 func (f *Fetcher) ListAvailableClusters(ctx context.Context) ([]string, error) {
 	clusters, err := f.rancherClient.ListClusters(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	clusterIDs := make([]string, 0, len(clusters))
+	clusterNames := make([]string, 0, len(clusters))
 	for _, cluster := range clusters {
-		if cluster.ClusterName != "" && cluster.ClientSecretName != "" {
-			clusterIDs = append(clusterIDs, cluster.ClusterName)
+		// Cluster must have a clientSecretName to be accessible
+		if cluster.ClientSecretName != "" {
+			clusterNames = append(clusterNames, cluster.Name)
 		}
 	}
 
-	return clusterIDs, nil
+	return clusterNames, nil
 }
